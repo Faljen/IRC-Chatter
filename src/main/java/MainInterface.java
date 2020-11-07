@@ -7,7 +7,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.DatagramSocket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +21,7 @@ import javax.swing.UIManager;
 public class MainInterface {
 
     String appName = "Simple IRC Client by Jacek Balczewski";
+    String username;
     MainInterface mainInterface;
     JFrame newFrame = new JFrame(appName);
     JButton sendMessage;
@@ -49,6 +49,7 @@ public class MainInterface {
     }
 
     public void preDisplay() {
+
         newFrame.setVisible(false);
         preFrame = new JFrame(appName);
         usernameChooser = new JTextField(15);
@@ -76,7 +77,10 @@ public class MainInterface {
 
     }
 
-    public void display() {
+
+
+    public void display() throws IOException {
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -97,8 +101,9 @@ public class MainInterface {
 
         usersList = new JTextArea();
         usersList.setEditable(false);
-        usersList.setFont(new Font("Serif", Font.PLAIN, 13));
+        usersList.setFont(new Font("Serif", Font.BOLD, 15));
         usersList.setLineWrap(true);
+        usersList.append(username + "\n");
 
         mainPanel.add(new JScrollPane(chatBox), BorderLayout.CENTER);
         mainPanel.add(new JScrollPane(usersList), BorderLayout.LINE_END);
@@ -143,16 +148,18 @@ public class MainInterface {
         }
     }
 
-    String username;
-
     class enterServerButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             username = usernameChooser.getText();
-            if (username.length() < 1) {
-                System.out.println("No!");
+            if (username.length() < 2) {
+                System.out.println("Too short! Minimum 2 characters!");
             } else {
                 preFrame.setVisible(false);
-                display();
+                try {
+                    display();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

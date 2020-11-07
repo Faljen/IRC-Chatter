@@ -6,16 +6,16 @@ public class Server extends Thread {
     public final static int PORT = 7331;
     private final static int BUFFER = 1024;
 
-    private DatagramSocket socket;
-    private ArrayList<InetAddress> clientAddresses;
-    private ArrayList<Integer> clientPorts;
-    private HashSet<String> existingClients;
+    public DatagramSocket socket;
+    public ArrayList<InetAddress> clientAddresses;
+    public ArrayList<Integer> clientPorts;
+    public ArrayList<String> existingClients;
 
     public Server() throws IOException {
         socket = new DatagramSocket(PORT);
         clientAddresses = new ArrayList();
         clientPorts = new ArrayList();
-        existingClients = new HashSet();
+        existingClients = new ArrayList();
     }
 
     public void run() {
