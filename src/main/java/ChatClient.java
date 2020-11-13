@@ -1,3 +1,6 @@
+// To simply run multiple clients:
+// In IntelliJ Run > Edit Configurations > Check "Allow parallel run" option
+
 import java.io.IOException;
 import java.awt.BorderLayout;
 import java.net.DatagramPacket;
