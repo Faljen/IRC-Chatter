@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 class ClientForm extends JFrame {
 
     JTextArea textArea = null;
-    DefaultListModel<String> userList = null;
+    public DefaultListModel<String> userList = null;
 
     public ClientForm(Consumer<String> send) {
 
@@ -72,6 +72,7 @@ public class ChatClient {
     private static String port = null;
 
     public static void main(String... args) throws IOException {
+
         initSendMessage();
         receiver();
     }

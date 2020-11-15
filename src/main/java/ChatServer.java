@@ -10,7 +10,7 @@ public class ChatServer {
     private static InetAddress inetAddress = null;
 
     //users
-    private static HashMap<String, String> users = new HashMap<String, String>();
+    public static HashMap<String, String> users = new HashMap<String, String>();
 
     public static void main(String... args) throws IOException {
 
@@ -38,6 +38,7 @@ public class ChatServer {
                 message = new String(buf).trim();
                 System.out.println(message);
 
+
                 if (message.matches("^//port:.*")) {
                     // if user coming
                     String[] userdata = message.substring(7).split("\\|"); // get port(0) and username(1) using regular expression
@@ -60,7 +61,6 @@ public class ChatServer {
     private static void sendMessage(String message) {
         // convert to binary
         byte[] buf = ("users=" + String.join("|", users.values()) + "&msg=" + message + " ").getBytes();
-
         users.keySet().forEach(key -> {
             try {
                 socket.send(new DatagramPacket(buf, buf.length, inetAddress, Integer.parseInt(key)));
